@@ -1,0 +1,32 @@
+Questions for detection of Psychological disorder:
+
+Q1	I found myself getting upset by quite trivial things.
+Q3	I couldn't seem to experience any positive feeling at all.
+Q4	I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical exertion).
+Q5	I just couldn't seem to get going.
+Q7	I had a feeling of shakiness (eg, legs going to give way).
+Q8	I found it difficult to relax.
+Q9	I found myself in situations that made me so anxious I was most relieved when they ended.
+Q10	I felt that I had nothing to look forward to.
+Q11	I found myself getting upset rather easily.
+Q12	I felt that I was using a lot of nervous energy.
+Q13	I felt sad and depressed.
+Q16	I felt that I had lost interest in just about everything.
+Q17	I felt I wasn't worth much as a person.
+Q20	I felt scared without any good reason.
+Q21	I felt that life wasn't worthwhile.
+Q22	I found it hard to wind down.
+Q24	I couldn't seem to get any enjoyment out of the things I did.
+Q26	I felt down-hearted and blue.
+Q27	I found that I was very irritable.
+Q28	I felt I was close to panic.
+Q29	I found it hard to calm down after something upset me.
+Q32	I found it difficult to tolerate interruptions to what I was doing.
+Q33	I was in a state of nervous tension.
+Q34	I felt I was pretty worthless.
+Q35	I was intolerant of anything that kept me from getting on with what I was doing.
+Q36	I felt terrified.
+Q38	I felt that life was meaningless.
+Q39	I found myself getting agitated.(troubled or nervous)
+Q40	I was worried about situations in which I might panic and make a fool of myself.
+Q41	I experienced trembling (eg, in the hands).
