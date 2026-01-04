@@ -1,0 +1,22 @@
+{
+    "class_labels": {
+        "0": "None",
+        "1": "Mild",
+        "2": "Moderate",
+        "3": "Severe"
+    },
+    "class_descriptions": {
+        "0": "No significant indicators of psychiatric distress detected.",
+        "1": "Mild indicators detected. Consider self-care practices and monitoring.",
+        "2": "Moderate indicators detected. We recommend consulting with a mental health professional.",
+        "3": "Severe indicators detected. We strongly recommend seeking professional help immediately."
+    },
+    "response_scale": {
+        "1": "Did not apply to me at all",
+        "2": "Applied to me to some degree, or some of the time",
+        "3": "Applied to me to a considerable degree, or a good part of the time",
+        "4": "Applied to me very much, or most of the time"
+    },
+    "model_version": "1.0.0",
+    "feature_count": 30
+}

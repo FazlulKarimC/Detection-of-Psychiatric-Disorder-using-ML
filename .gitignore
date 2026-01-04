@@ -1,2 +1,92 @@
+# ==================================
+# Psychiatric Disorder Detection
+# ==================================
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+
+# ----- Virtual Environments -----
+venv/
+.venv/
+env/
+.env
+ENV/
+backend/venv/
+
+# ----- IDE / Editor -----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ----- OS -----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ----- Data Files -----
 *.csv
-*.png
+data/*.csv
+!data/codebook.txt
+
+# ----- ML Artifacts -----
+# Training outputs (regenerated from notebook)
+ml/outputs/
+*.joblib
+!backend/models/*.joblib
+!backend/models/*.json
+
+# ----- Legacy Files (to be deleted) -----
+model1.pkl
+*.pkl
+pddmodel.py
+questions.txt
+final ML code.ipynb
+
+# ----- Logs -----
+*.log
+logs/
+
+# ----- Frontend -----
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env
+frontend/.env.local
+
+# ----- Backend -----
+backend/__pycache__/
+backend/app/__pycache__/
+backend/.env
+
+# ----- Jupyter -----
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# ----- Test / Coverage -----
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# ----- Docker -----
+*.log
+docker-compose.override.yml
