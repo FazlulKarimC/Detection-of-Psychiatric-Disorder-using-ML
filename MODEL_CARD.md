@@ -8,7 +8,8 @@
 | **Version** | 1.0.0 |
 | **Type** | Multi-class Classification |
 | **Framework** | scikit-learn |
-| **Algorithm** | Selected via comparison (see Training section) |
+| **Algorithm** | Logistic Regression (selected via comparison) |
+| **Preprocessing** | StandardScaler for feature normalization |
 | **Input** | 30 integer features (1-4) |
 | **Output** | 4 classes (None, Mild, Moderate, Severe) |
 
@@ -51,16 +52,31 @@ OpenPsychometrics DASS-42 Dataset (2017-2019)
 
 ## Evaluation Metrics
 
-Metrics are computed on held-out test set. Exact values will be populated after training.
+Metrics computed on held-out test set (20% of data, stratified split):
 
-| Metric | Description |
-|--------|-------------|
-| Accuracy | Overall correct predictions |
-| Precision (weighted) | Positive predictive value across classes |
-| Recall (weighted) | True positive rate across classes |
-| F1 Score (weighted) | Harmonic mean of precision and recall |
-| F1 Score (macro) | Unweighted average F1 across classes |
-| ROC-AUC (OvR) | One-vs-Rest area under ROC curve |
+### Best Model: Logistic Regression
+
+| Metric | Value |
+|--------|-------|
+| **Accuracy** | 92.0% |
+| **Precision (weighted)** | 92.0% |
+| **Recall (weighted)** | 92.0% |
+| **F1 Score (weighted)** | 92.0% |
+| **F1 Score (macro)** | 92.0% |
+| **ROC-AUC (OvR)** | 99.2% |
+| **CV Mean (5-fold)** | 92.1% |
+| **CV Std** | 0.54% |
+
+### Model Comparison
+
+| Model | F1-Score | ROC-AUC | CV Mean |
+|-------|----------|---------|--------|
+| Logistic Regression ★ | 0.920 | 0.992 | 0.921 |
+| SVM (RBF) | 0.919 | 0.992 | 0.919 |
+| Random Forest | 0.894 | 0.986 | 0.895 |
+| Gradient Boosting | 0.893 | 0.987 | 0.896 |
+
+★ Selected based on highest weighted F1-score
 
 ## Limitations
 

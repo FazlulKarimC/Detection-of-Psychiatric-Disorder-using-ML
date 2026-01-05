@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "stress assessment",
     "psychological research",
   ],
-  authors: [{ name: "Research Team" }],
+  authors: [{ name: "Fazlul Karim" }],
   robots: "noindex, nofollow", // Research tool, not for public indexing
 };
 

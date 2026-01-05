@@ -30,14 +30,21 @@ The DASS-42 is a validated psychological instrument measuring three related nega
 ### Feature Selection
 Used **Recursive Feature Elimination (RFE)** with Random Forest to select the 30 most predictive questions from the original 42, ensuring a balance between model performance and questionnaire length.
 
+### Data Preprocessing
+- **StandardScaler** applied to normalize feature distributions
+- Median imputation for missing values
+- Quartile-based severity classification
+
 ### Models Trained & Compared
 
-| Model | Purpose |
-|-------|---------|
-| Logistic Regression | Baseline linear model with interpretability |
-| Random Forest | Ensemble method capturing non-linear patterns |
-| SVM (RBF kernel) | Robust classifier for complex decision boundaries |
-| Gradient Boosting | Sequential ensemble for improved accuracy |
+| Model | Accuracy | F1-Score | ROC-AUC |
+|-------|----------|----------|--------|
+| **Logistic Regression** ★ | 92.0% | 0.920 | 0.992 |
+| SVM (RBF kernel) | 91.9% | 0.919 | 0.992 |
+| Random Forest | 89.4% | 0.894 | 0.986 |
+| Gradient Boosting | 89.2% | 0.893 | 0.987 |
+
+★ Selected as best model based on weighted F1-score
 
 ### Evaluation Strategy
 - **Stratified Train/Test Split** (80/20) to maintain class distribution
@@ -104,22 +111,23 @@ This is why we report:
 - Node.js 18+
 - npm or yarn
 
-### 1. Train the Model
+### 1. Train the Model (Google Colab)
 
-```bash
-# Install ML dependencies
-cd ml
-pip install -r requirements.txt
+We recommend using **Google Colab** for training to leverage free GPU resources:
 
-# Run training (auto-downloads dataset from Kaggle)
-python train.py
-```
+1. Open `ml/train_colab.ipynb` in Google Colab
+2. Run all cells to:
+   - Download the DASS dataset from Kaggle
+   - Train and compare 4 classifiers (Logistic Regression, Random Forest, SVM, Gradient Boosting)
+   - Apply StandardScaler for feature normalization
+   - Generate evaluation metrics and confusion matrices
+   - Save the best model to your Drive or download directly
+3. Copy these files to `backend/models/`:
+   - `psychiatric_model.joblib` (trained model)
+   - `scaler.joblib` (fitted StandardScaler)
+   - `feature_names.json` (feature configuration)
 
-This will:
-- Download the DASS dataset from Kaggle
-- Train and compare 4 models
-- Generate evaluation metrics and visualizations
-- Save the best model to `backend/models/`
+**Current Best Model**: Logistic Regression with 92.0% accuracy and 99.2% ROC-AUC
 
 ### 2. Start the Backend
 
@@ -167,19 +175,29 @@ Open http://localhost:3000 in your browser.
 
 ## 🌐 Deployment
 
-### Backend on Render
+### Backend on Google Cloud Run (Recommended)
+
+1. Install [Google Cloud CLI](https://cloud.google.com/sdk)
+2. Build and deploy:
+```bash
+cd backend
+gcloud run deploy pdd-backend --source . --allow-unauthenticated
+```
+3. Note the deployed URL for frontend configuration
+
+### Backend on Render (Alternative)
 
 1. Create a new Web Service on [Render](https://render.com)
 2. Connect your GitHub repository
-3. Set build command: `pip install -r backend/requirements.txt`
-4. Set start command: `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`
-5. Add environment variables as needed
+3. Set root directory to `backend`
+4. Use Dockerfile for deployment (auto-detected)
+5. Deploy and note the URL
 
 ### Frontend on Vercel
 
 1. Import project to [Vercel](https://vercel.com)
 2. Set root directory to `frontend`
-3. Add environment variable: `NEXT_PUBLIC_API_URL=https://your-backend.onrender.com`
+3. Add environment variable: `NEXT_PUBLIC_API_URL=https://your-backend-url.run.app`
 4. Deploy
 
 ## 🔮 Future Improvements
