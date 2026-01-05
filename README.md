@@ -92,7 +92,7 @@ This is why we report:
 │                 │  ──────────────▶   │                 │
 │   Next.js       │                    │   FastAPI       │
 │   Frontend      │  ◀──────────────   │   Backend       │
-│   (Vercel)      │     Prediction     │   (Render)      │
+│   (Vercel)      │     Prediction     │   (HF Space)    │
 │                 │                    │                 │
 └─────────────────┘                    └────────┬────────┘
                                                 │
@@ -175,23 +175,13 @@ Open http://localhost:3000 in your browser.
 
 ## 🌐 Deployment
 
-### Backend on Google Cloud Run (Recommended)
+### Backend on Hugging Face Spaces (Recommended)
 
-1. Install [Google Cloud CLI](https://cloud.google.com/sdk)
-2. Build and deploy:
-```bash
-cd backend
-gcloud run deploy pdd-backend --source . --allow-unauthenticated
-```
-3. Note the deployed URL for frontend configuration
-
-### Backend on Render (Alternative)
-
-1. Create a new Web Service on [Render](https://render.com)
-2. Connect your GitHub repository
-3. Set root directory to `backend`
-4. Use Dockerfile for deployment (auto-detected)
-5. Deploy and note the URL
+1. Create a new Space on [Hugging Face](https://huggingface.co/new-space)
+2. Select **Docker** as the Space SDK
+3. Upload the contents of the `backend` directory to the Space
+4. The Space will build automatically using the provided Dockerfile
+5. Note the Space URL (e.g., `https://your-username-space-name.hf.space`) for frontend configuration
 
 ### Frontend on Vercel
 
@@ -221,4 +211,3 @@ This project is for educational purposes. The DASS questionnaire is in the publi
 
 ---
 
-**Remember**: If you or someone you know is struggling with mental health, please reach out to a qualified professional or contact a mental health helpline in your country.
