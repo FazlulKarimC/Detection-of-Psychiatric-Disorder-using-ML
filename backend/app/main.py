@@ -8,6 +8,8 @@ This API provides:
 Note: This tool is for educational purposes only and is NOT a medical diagnosis.
 """
 
+import os
+import time
 import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
@@ -16,20 +18,31 @@ from fastapi.middleware.cors import CORSMiddleware
 from .schemas import PredictionRequest, PredictionResponse, HealthResponse
 from .model import model_manager
 
-# Configure logging
+# Configure logging with more detail for debugging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Load model on startup."""
-    print("Starting up... Loading model...")
+    """Load model on startup with timing for cold start monitoring."""
+    start_time = time.time()
+    logger.info("🚀 Starting up... Loading model...")
+    
     success = model_manager.load()
-    if not success:
-        print("WARNING: Model failed to load. Predictions will not work.")
-        print("Please run 'python ml/train.py' first to train and save the model.")
+    load_time = time.time() - start_time
+    
+    if success:
+        logger.info(f"✅ Model loaded successfully in {load_time:.2f}s")
+    else:
+        logger.warning("⚠️ Model failed to load. Predictions will not work.")
+        logger.warning("Please run training script first to train and save the model.")
+    
     yield
-    print("Shutting down...")
+    logger.info("👋 Shutting down...")
 
 
 app = FastAPI(
@@ -60,13 +73,19 @@ app = FastAPI(
 )
 
 # Configure CORS for frontend access
+# Allow configuration via environment variable for production flexibility
+_extra_origins = os.getenv("CORS_ORIGINS", "").split(",") if os.getenv("CORS_ORIGINS") else []
+_allowed_origins = [
+    "http://localhost:3000",      # Local Next.js dev
+    "http://127.0.0.1:3000",
+] + [origin.strip() for origin in _extra_origins if origin.strip()]
+
+logger.info(f"CORS allowed origins: {_allowed_origins}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",      # Local Next.js dev
-        "http://127.0.0.1:3000",
-    ],
-    allow_origin_regex=r"^https://.*\.vercel\.app$",  # Vercel deployments
+    allow_origins=_allowed_origins,
+    allow_origin_regex=r"^https://.*\.vercel\.app$",  # All Vercel deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

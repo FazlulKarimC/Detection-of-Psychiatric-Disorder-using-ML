@@ -14,16 +14,30 @@ import joblib
 logger = logging.getLogger(__name__)
 
 # Load shared configuration (single source of truth)
-_config_path = Path(__file__).parent.parent.parent / "shared_config.json"
-if _config_path.exists():
-    with open(_config_path, 'r') as f:
-        _config = json.load(f)
+# Check multiple paths for Docker deployment flexibility
+_config_paths = [
+    Path(__file__).parent.parent.parent / "shared_config.json",  # Local dev
+    Path("/app/shared_config.json"),  # Docker root
+    Path(__file__).parent.parent / "shared_config.json",  # Backend root
+]
+
+_config = None
+for _config_path in _config_paths:
+    if _config_path.exists():
+        try:
+            with open(_config_path, 'r') as f:
+                _config = json.load(f)
+            logger.info(f"Loaded configuration from {_config_path}")
+            break
+        except Exception as e:
+            logger.warning(f"Failed to load config from {_config_path}: {e}")
+
+if _config:
     CLASS_LABELS = {int(k): v for k, v in _config["class_labels"].items()}
     CLASS_DESCRIPTIONS = {int(k): v for k, v in _config["class_descriptions"].items()}
-    logger.info(f"Loaded configuration from {_config_path}")
 else:
-    # Fallback to hardcoded values if config not found
-    logger.warning(f"Config not found at {_config_path}, using defaults")
+    # Fallback to hardcoded values if config not found (OK for Docker deployment)
+    logger.info("Using default class labels and descriptions")
     CLASS_LABELS = {
         0: "None",
         1: "Mild",
